@@ -9,11 +9,11 @@ export const stats = [
 
 export const journeySteps = [
   ['Discover Opportunities', 'Search tenders by department, category, product or location on the portal.'],
+  ['View Tender Details', 'Check eligibility, BOQ, technical specifications, fees and deadlines.'],
   ['Prepare Required Documents', 'Arrange company documents, certificates and digital signature.'],
-  ['Track Evaluation Status', 'Monitor technical qualification and bid comparison updates.'],
-  ['Analyze Tender Details', 'Check eligibility, BOQ, technical specs, fees and deadlines carefully.'],
   ['Submit Online Bid', 'Upload technical and financial bid in electronic format only.'],
-  ['Win & Execute Contract', 'If selected, proceed with agreement and project execution.'],
+  ['Track Evaluation', 'Monitor technical qualification and bid comparison updates.'],
+  ['Award / Contract', 'If selected, proceed with agreement and project execution.'],
 ]
 
 export const benefits = [
@@ -48,7 +48,7 @@ export const tenders = [
     value: 'Rs. 9.50 Lacs',
     emd: 'Rs. 19,000',
     fee: 'Rs. 500',
-    closing: 'Apr 22, 2026',
+    closing: 'Aug 22, 2026',
     type: 'Open / e-Tender',
     status: 'Open',
     tags: ['New', 'Closing in 2 days'],
@@ -66,7 +66,7 @@ export const tenders = [
     value: 'Rs. 6.80 Lacs',
     emd: 'Rs. 13,600',
     fee: 'Rs. 500',
-    closing: 'May 6, 2026',
+    closing: 'Sep 6, 2026',
     type: 'Open / e-Tender',
     status: 'Open',
     tags: ['Open'],
@@ -84,7 +84,7 @@ export const tenders = [
     value: 'Rs. 8.12 Lacs',
     emd: 'Rs. 16,240',
     fee: 'Rs. 500',
-    closing: 'Apr 30, 2026',
+    closing: 'Aug 30, 2026',
     type: '15th Finance',
     status: 'Open',
     tags: ['New'],
@@ -102,7 +102,7 @@ export const tenders = [
     value: 'Rs. 148.5 Cr',
     emd: 'Rs. 1.48 Cr',
     fee: 'Rs. 25,000',
-    closing: 'Apr 25, 2026',
+    closing: 'Aug 25, 2026',
     type: 'EPC Turnkey',
     status: 'Corrigendum',
     tags: ['Corrigendum', 'Closing in 5 days'],
@@ -120,7 +120,7 @@ export const tenders = [
     value: 'Rs. 29.30 Lacs',
     emd: 'Rs. 58,600',
     fee: 'Rs. 500',
-    closing: 'May 2, 2026',
+    closing: 'Sep 2, 2026',
     type: 'SSSS Yojana',
     status: 'Open',
     tags: ['Open'],
@@ -129,8 +129,8 @@ export const tenders = [
 ]
 
 export const notices = [
-  ['Urgent', 'Request for expressions of interest for integrated master plan preparation and gap analysis', 'Urban Development Department', '12 Apr 2026'],
-  ['New', 'Gujarat State Highway Project - Pre-Qualification of Contractors', 'Roads & Buildings Department', '10 Apr 2026'],
-  ['Update', 'Empanelment of Contractors for Electrical Works 2026-27', 'Energy & Petrochemicals Department', '08 Apr 2026'],
-  ['Latest', 'Tender for Supply of IT Hardware for Government Offices', 'General Administration Department', '05 Apr 2026'],
+  ['Urgent', 'Request for expressions of interest for integrated master plan preparation and gap analysis', 'Urban Development Department', '12 Aug 2026'],
+  ['New', 'Gujarat State Highway Project - Pre-Qualification of Contractors', 'Roads & Buildings Department', '10 Aug 2026'],
+  ['Update', 'Empanelment of Contractors for Electrical Works 2026-27', 'Energy & Petrochemicals Department', '08 Aug 2026'],
+  ['Latest', 'Tender for Supply of IT Hardware for Government Offices', 'General Administration Department', '05 Aug 2026'],
 ]
