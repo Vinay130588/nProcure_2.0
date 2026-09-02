@@ -35,6 +35,8 @@ import {
   userRegistrationService,
 } from "./portalStore";
 import "./WorkflowPortal.css";
+import { routePath } from "./paths";
+import { fieldKind, fieldPattern, normalizeFieldValue, validateField } from "./validation";
 
 const OTP = "123456";
 const legalStatusOptions = [
@@ -1146,7 +1148,7 @@ export function AuthenticatedPortal({ session, navigate, onLogout }) {
         </section>
       </main>
     );
-  const path = window.location.pathname;
+  const path = routePath();
   const menu = menuFor(user, accountService.get(user.userId));
   const logout = () => {
     authServiceV2.logout();
@@ -4135,38 +4137,50 @@ function WFInput({
   readOnly,
   hint,
 }) {
-  const isMobile = /mobile|contact number/i.test(label);
+  const [touched, setTouched] = useState(false);
+  const kind = fieldKind(label, type);
+  const result = validateField({ label, type, value, required });
+  const error = !readOnly && touched ? result.error : "";
+  const showSuccess = !readOnly && touched && Boolean(String(value).trim()) && result.valid;
+  const errorId = `${label.replace(/\W+/g, "-").toLowerCase()}-error`;
   return (
-    <label className="wf-field">
+    <label className={`wf-field validated-field ${error ? "is-invalid" : showSuccess ? "is-valid" : ""}`}>
       <span>
         {label}
         {required && " *"}
       </span>
-      <input
-        type={type}
+      <span className="validation-control"><input
+        type={kind === "email" ? "email" : type}
         value={value}
-        onChange={(e) => onChange?.(isMobile ? e.target.value.replace(/\D/g, "").slice(0, 10) : e.target.value)}
+        onChange={(e) => onChange?.(normalizeFieldValue(label, type, e.target.value))}
+        onBlur={() => setTouched(true)}
         required={required}
         readOnly={readOnly}
-        maxLength={isMobile ? 10 : undefined}
-        minLength={isMobile ? 10 : undefined}
-        inputMode={isMobile ? "numeric" : undefined}
-        pattern={isMobile ? "[0-9]{10}" : undefined}
-      />
+        maxLength={{ mobile: 10, pin: 6, pan: 10, gst: 15 }[kind]}
+        inputMode={["mobile", "pin"].includes(kind) ? "numeric" : undefined}
+        pattern={fieldPattern(kind)?.source}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? errorId : undefined}
+      />{(error || showSuccess) && <i className="validation-icon" aria-hidden="true">{showSuccess ? "✓" : "×"}</i>}</span>
+      {error && <small id={errorId} className="field-error" role="alert">{error}</small>}
       {hint && <small>{hint}</small>}
     </label>
   );
 }
 function WFSelect({ label, value = "", onChange, options, optionLabels = {}, required = false, readOnly = false }) {
+  const [touched, setTouched] = useState(false);
+  const error = !readOnly && touched && required && !value ? `${label} is required.` : "";
+  const showSuccess = !readOnly && touched && Boolean(value);
   return (
-    <label className="wf-field">
+    <label className={`wf-field validated-field ${error ? "is-invalid" : showSuccess ? "is-valid" : ""}`}>
       <span>{label}{required && " *"}</span>
-      <select value={value} required={required} disabled={readOnly} onChange={(e) => onChange(e.target.value)}>
+      <span className="validation-control"><select value={value} required={required} disabled={readOnly} onChange={(e) => onChange(e.target.value)} onBlur={() => setTouched(true)} aria-invalid={Boolean(error)}>
         <option value="">Select</option>
         {options.filter(Boolean).map((x) => (
           <option key={x} value={x}>{optionLabels[x] || x}</option>
         ))}
-      </select>
+      </select>{(error || showSuccess) && <i className="validation-icon" aria-hidden="true">{showSuccess ? "✓" : "×"}</i>}</span>
+      {error && <small className="field-error" role="alert">{error}</small>}
     </label>
   );
 }
